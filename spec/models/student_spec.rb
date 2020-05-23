@@ -2,7 +2,7 @@ RSpec.describe Student do
   let(:math) { 4 }
   let(:russian) { 4 }
   let(:phys) { 4 }
-  let(:student) { Student.new(name: 'Some name1', math: math, rus: russian, phys: phys) }
+  let(:student) { build(:student, math: math, russian: russian, phys: phys) }
 
   it 'has math' do
     expect(student.math).to eq(math)
