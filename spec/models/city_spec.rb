@@ -1,26 +1,26 @@
 RSpec.describe City do
-  let (:good_student1) { Student.new(math: 4, russian: 5, phys: 4) }
-  let (:good_student2) { Student.new(math: 4, russian: 4, phys: 5) }
-  let (:good_student3) { Student.new(math: 5, russian: 4, phys: 4) }
-  let (:good_student4) { Student.new(math: 5, russian: 5, phys: 5) }
-  let (:bad_student1) { Student.new(math: 4, russian: 3, phys: 4) }
-  let (:bad_student2) { Student.new(math: 4, russian: 4, phys: 3) }
-  let (:bad_student3) { Student.new(math: 3, russian: 4, phys: 4) }
+  let (:good_student1) { Student.new(name: 'Some name1', math: 4, rus: 5, phys: 4) }
+  let (:good_student2) { Student.new(name: 'Some name2', math: 4, rus: 4, phys: 5) }
+  let (:good_student3) { Student.new(name: 'Some name3', math: 5, rus: 4, phys: 4) }
+  let (:good_student4) { Student.new(name: 'Some name4', math: 5, rus: 5, phys: 5) }
+  let (:bad_student1) { Student.new(name: 'Some name5', math: 4, rus: 3, phys: 4) }
+  let (:bad_student2) { Student.new(name: 'Some name6', math: 4, rus: 4, phys: 3) }
+  let (:bad_student3) { Student.new(name: 'Some name7', math: 3, rus: 4, phys: 4) }
   let (:students1) { [good_student1, good_student2, bad_student1] }
   let (:students2) { [good_student3, good_student4] }
   let (:students3) { [bad_student2, bad_student3] }
   let (:school1) {
-    sch = School.new(number: 0, parser: nil)
+    sch = School.new(number: 0, file_format: :json)
     students1.each { |st| sch.add_student(st) }
     sch
   }
   let (:school2) {
-    sch = School.new(number: 1, parser: nil)
+    sch = School.new(number: 1, file_format: :json)
     students2.each { |st| sch.add_student(st) }
     sch
   }
   let (:school3) {
-    sch = School.new(number: 2, parser: nil)
+    sch = School.new(number: 2, file_format: :xml)
     students3.each { |st| sch.add_student(st) }
     sch
   }

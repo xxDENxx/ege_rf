@@ -1,10 +1,12 @@
 class Student
+  attr_reader :name
   attr_accessor :math, :russian, :phys
 
-  def initialize(math: nil, russian: nil, phys: nil)
-    @math = math if math
-    @russian = russian if russian
-    @phys = phys if phys
+  def initialize(name:, math: nil, rus: nil, phys: nil)
+    @name = name
+    @math = math.to_f if math
+    @russian = rus.to_f if rus
+    @phys = phys.to_f if phys
   end
 
   def bad?
