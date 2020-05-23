@@ -1,3 +1,5 @@
+require 'active_support/core_ext'
+
 class School
   AVERAGE_METHODS = {
     average_math: :math,
@@ -5,11 +7,11 @@ class School
     average_phys: :phys,
     bad_students: :bad?
   }
-  attr_reader :number, :parser, :students
+  attr_reader :number, :students
 
-  def initialize(number:, parser:)
+  def initialize(number:, file_format:)
     @number = number
-    @parser = parser
+    @format = file_format
     @students = []
   end
 
@@ -18,6 +20,10 @@ class School
     AVERAGE_METHODS.each do |mth, _|
       instance_variable_set("@#{mth}", nil)
     end
+  end
+
+  def data_file_name
+    "school#{@number}.#{@format}"
   end
 
   AVERAGE_METHODS.each do |mth, call_method|
