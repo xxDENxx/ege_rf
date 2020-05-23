@@ -1,33 +1,25 @@
 RSpec.describe School do
-  let (:good_student1) { Student.new(name: 'Some name1', math: 4, rus: 5, phys: 4) }
-  let (:good_student2) { Student.new(name: 'Some name2', math: 4, rus: 4, phys: 5) }
-  let (:bad_student) { Student.new(name: 'Some name3', math: 4, rus: 3, phys: 3) }
-  let (:students) { [good_student1, good_student2, bad_student] }
-  let (:school) {
-    sch = School.new(number: 0, file_format: :json)
-    students.each { |st| sch.add_student(st) }
-    sch
-  }
+  let (:school) { build(:school, :with_students) }
 
   it 'has average_math' do
-    expect(school.average_math).to eq(4)
+    expect(school.average_math).to eq(school.students.sum(&:math).to_f / school.students.count)
   end
   it 'has average_russian' do
-    expect(school.average_russian).to eq(4)
+    expect(school.average_russian).to eq(school.students.sum(&:russian).to_f / school.students.count)
   end
   it 'has average_phys' do
-    expect(school.average_phys).to eq(4)
+    expect(school.average_phys).to eq(school.students.sum(&:phys).to_f / school.students.count)
   end
   it 'has bad_student' do
-    expect(school.bad_students).to eq(1.0 / 3)
+    expect(school.bad_students).to eq(school.students.sum(&:bad?).to_f / school.students.count)
   end
 
   context 'new student' do
-    let (:new_student) { Student.new(name: 'Some name4', math: 5, rus: 5, phys: 5) }
+    let (:new_student) { build(:student, :very_bad) }
     subject { school.add_student(new_student) }
-    it { expect { subject }.to change { school.average_math }.by(0.25) }
-    it { expect { subject }.to change { school.average_russian }.by(0.25) }
-    it { expect { subject }.to change { school.average_phys }.by(0.25) }
+    it { expect { subject }.to change { school.average_math } }
+    it { expect { subject }.to change { school.average_russian } }
+    it { expect { subject }.to change { school.average_phys } }
     it { expect { subject }.to change { school.bad_students } }
   end
 end
